@@ -2,7 +2,7 @@
 
 A modern, responsive Pokédex application built with React and Material-UI, powered by the PokeAPI.
 
-Access the project here:https://vercel.com/ceds-projects-ad8759a4/pokedex
+Access the project here: https://pokedex-five-eta-35.vercel.app/
 
 ![alt text](image.png)
 
