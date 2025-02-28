@@ -1,48 +1,44 @@
 import React from 'react';
-import { Card, CardContent, CardMedia, Typography, Box, Chip } from '@mui/material';
-import { formatPokemonId } from '../services/pokemonService';
-
-// Dynamic color generation based on Pokemon type
-const getTypeColor = (type) => {
-    const hue = Math.abs(type.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0)) % 360;
-    return `hsl(${hue}, 70%, 45%)`;
-};
+import { Card, CardContent, CardMedia, Typography, Chip, Box } from '@mui/material';
+import { getTypeColor, getLightTypeColor } from '../utils/typeColors';
 
 const PokemonCard = ({ pokemon, onClick }) => {
     return (
         <Card 
-            sx={{ 
+            onClick={() => onClick(pokemon.id)}
+            sx={{
                 cursor: 'pointer',
                 transition: 'transform 0.2s, box-shadow 0.2s',
                 '&:hover': {
                     transform: 'scale(1.03)',
-                    boxShadow: 3
+                    boxShadow: 6
                 },
                 height: '100%',
                 display: 'flex',
-                flexDirection: 'column'
+                flexDirection: 'column',
+                backgroundColor: pokemon.types.length > 0 ? 
+                    getLightTypeColor(pokemon.types[0]) : 'white'
             }}
-            onClick={() => onClick(pokemon.id)}
         >
             <CardMedia
                 component="img"
                 height="200"
                 image={pokemon.imageUrl}
                 alt={pokemon.name}
-                sx={{ 
+                sx={{
                     objectFit: 'contain',
                     p: 2,
-                    bgcolor: '#f5f5f5'
+                    backgroundColor: 'rgba(255,255,255,0.8)'
                 }}
             />
             <CardContent sx={{ flexGrow: 1 }}>
                 <Typography variant="body2" color="text.secondary" gutterBottom>
-                    #{formatPokemonId(pokemon.id)}
+                    #{String(pokemon.id).padStart(3, '0')}
                 </Typography>
                 <Typography 
                     variant="h6" 
-                    component="div" 
-                    sx={{ 
+                    component="div"
+                    sx={{
                         textTransform: 'capitalize',
                         mb: 1
                     }}
@@ -53,12 +49,12 @@ const PokemonCard = ({ pokemon, onClick }) => {
                     {pokemon.types.map((type) => (
                         <Chip
                             key={type}
-                            label={type}
+                            label={type.toUpperCase()}
                             size="small"
                             sx={{
-                                bgcolor: getTypeColor(type),
+                                backgroundColor: getTypeColor(type),
                                 color: 'white',
-                                textTransform: 'capitalize'
+                                fontWeight: 'bold'
                             }}
                         />
                     ))}

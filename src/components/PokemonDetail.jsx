@@ -16,11 +16,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import { getPokemonDetails, getPokemonSpecies, getEvolutionChain } from '../services/pokemonService';
-
-const getTypeColor = (type) => {
-    const hue = Math.abs(type.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0)) % 360;
-    return `hsl(${hue}, 70%, 45%)`;
-};
+import { getTypeColor } from '../utils/typeColors';
 
 const StatBar = ({ name, value }) => (
     <Box sx={{ mb: 1 }}>
@@ -149,11 +145,11 @@ const PokemonDetail = ({ open, onClose, pokemonId, onNavigate }) => {
                                     {pokemon.types.map(type => (
                                         <Chip
                                             key={type}
-                                            label={type}
+                                            label={type.toUpperCase()}
                                             sx={{
-                                                bgcolor: getTypeColor(type),
+                                                backgroundColor: getTypeColor(type),
                                                 color: 'white',
-                                                textTransform: 'capitalize'
+                                                fontWeight: 'bold'
                                             }}
                                         />
                                     ))}
@@ -167,12 +163,12 @@ const PokemonDetail = ({ open, onClose, pokemonId, onNavigate }) => {
                                     {pokemon.weaknesses.map(weakness => (
                                         <Chip
                                             key={weakness}
-                                            label={weakness}
+                                            label={weakness.toUpperCase()}
                                             size="small"
                                             sx={{
-                                                bgcolor: getTypeColor(weakness),
+                                                backgroundColor: getTypeColor(weakness),
                                                 color: 'white',
-                                                textTransform: 'capitalize'
+                                                fontWeight: 'bold'
                                             }}
                                         />
                                     ))}
