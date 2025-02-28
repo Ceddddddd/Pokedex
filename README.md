@@ -1,4 +1,4 @@
-# React Pokédex
+# Pokedex
 
 A modern, responsive Pokédex application built with React and Material-UI, powered by the PokeAPI.
 
