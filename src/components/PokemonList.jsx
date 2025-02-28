@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
     Grid,
     TextField,
@@ -24,7 +24,7 @@ const PokemonList = ({ onPokemonSelect }) => {
     const [hasMore, setHasMore] = useState(true);
     const limit = 10;
 
-    const loadPokemon = async (isInitial = false) => {
+    const loadPokemon = useCallback(async (isInitial = false) => {
         try {
             setLoading(true);
             const newOffset = isInitial ? 0 : offset;
@@ -39,11 +39,11 @@ const PokemonList = ({ onPokemonSelect }) => {
         } finally {
             setLoading(false);
         }
-    };
+    }, [offset, limit]);
 
     useEffect(() => {
         loadPokemon(true);
-    }, []);
+    }, [loadPokemon]);
 
     const handleSearch = (event) => {
         setSearchTerm(event.target.value.toLowerCase());
